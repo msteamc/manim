@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+
 from manimlib.imports import *
 
 # To watch one of these scenes, run the following:
@@ -13,7 +14,6 @@ from manimlib.imports import *
 # Use -n <number> to skip ahead to the n'th animation of a scene.
 # Use -r <number> to specify a resolution (for example, -r 1080
 # for a 1920x1080 video)
-
 
 class OpeningManimExample(Scene):
     def construct(self):
