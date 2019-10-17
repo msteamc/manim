@@ -44,8 +44,8 @@ def tex_to_dvi(tex_file):
             "latex",
             "-interaction=batchmode",
             "-halt-on-error",
-            "-output-directory=\"{}\"".format(consts.TEX_DIR.replace('\\','/')),
-            "\"{}\"".format(tex_file.replace('\\','/')),
+            "-output-directory=\"{}\"".format(consts.TEX_DIR),
+            "\"{}\"".format(tex_file),
             ">",
             os.devnull
         ] if not TEX_USE_CTEX else [
@@ -53,8 +53,8 @@ def tex_to_dvi(tex_file):
             "-no-pdf",
             "-interaction=batchmode",
             "-halt-on-error",
-            "-output-directory=\"{}\"".format(consts.TEX_DIR.replace('\\','/')),
-            "\"{}\"".format(tex_file.replace('\\','/')),
+            "-output-directory=\"{}\"".format(consts.TEX_DIR),
+            "\"{}\"".format(tex_file),
             ">",
             os.devnull
         ]
