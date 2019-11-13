@@ -177,5 +177,101 @@ class FadeText(Scene):
         self.play(FadeOut(text), run_time=5)
         self.wait()
 
+
 class FadeTextDirection(Scene):
     def construct(self):
+        text = TextMobject("Text or Object")
+        self.play(FadeInFrom(text, DOWN), run_time=1)
+        self.wait(3)
+
+
+class GrowObjectFromCenter(Scene):
+    def construct(self):
+        text = TextMobject("Text or Object")
+        self.play(GrowFromCenter(text), run_time=1)
+        self.wait(3)
+
+
+class ShowCreationObject(Scene):
+    def construct(self):
+        text = TextMobject("Text or Object")
+        self.play(ShowCreation(text), run_time=1)
+        self.wait(5)
+
+
+# this class does not work under my environment
+class ColoringText(Scene):
+    def construct(self):
+        text = TextMobject("Text or object")
+        self.add(text)
+        self.wait(0.5)
+        for letter in text:
+            self.play(
+                LaggedStart(ApplyMethod,
+                            letter,
+                            lambda m: (m.set_color, YELLOW),
+                            run_time=0.12))
+        self.wait(0.5)
+
+
+class CrossText1(Scene):
+    def construct(self):
+        text = TexMobject("\\sum_{i=1}^{\\infty}i", "=", "-\\frac{1}{2}")
+        cross = Cross(text[2])
+        cross.set_stroke(RED, 6)
+        self.play(Write(text))
+        self.wait(.5)
+        self.play(ShowCreation(cross))
+        self.wait(2)
+
+
+class CrossText2(Scene):
+    def construct(self):
+        text = TexMobject("\\sum_{i=1}^{\\infty}i", "=", "-\\frac{1}{2}")
+        eq = VGroup(text[1], text[2])
+        cross = Cross(eq)
+        cross.set_stroke(RED, 6)
+        self.play(Write(text))
+        self.wait(4)
+        self.play(ShowCreation(cross))
+        self.wait(3)
+
+
+class FrameBox1(Scene):
+    def construct(self):
+        text = TexMobject("\\hat g(", "f", ")", "=", "\\int", "_{t_1}",
+                          "^{t_{2}}", "g(", "t", ")", "e", "^{-2\\pi i}", "f",
+                          "t}", "dt")
+        frameBox = SurroundingRectangle(text[4], buff=0.5 * SMALL_BUFF)
+        self.play(Write(text))
+        self.wait(5)
+        self.play(ShowCreation(frameBox))
+        self.wait(3)
+
+
+class FrameBox2(Scene):
+    def construct(self):
+        text = TexMobject("\\hat g(", "f", ")", "=", "\\int", "_{t_1}",
+                          "^{t_{2}}", "g(", "t", ")", "e", "^{-2\\pi i", "f",
+                          "dt")
+        selection = VGroup(text[4], text[5], text[6])
+        frameBox = SurroundingRectangle(selection, buff=0.5 * SMALL_BUFF)
+        frameBox.set_stroke(GREEN, 9)
+        self.play(Write(text))
+        self.wait(.5)
+        self.play(ShowCreation(frameBox))
+        self.wait(3)
+
+
+class BraceText(Scene):
+    def construct(self):
+        text = TexMobject("\\frac{d}{dx}f(x)g(x)=", "f(x)\\frac{d}{dx}g(x)",
+                          "+", "g(x)\\frac{d}{dx}f(x)")
+        self.play(Write(text))
+        brace_top = Brace(text[1], UP, buff=SMALL_BUFF)
+        brace_bottom = Brace(text[3], DOWN, buff=SMALL_BUFF)
+        text_top = brace_top.get_text("$g'f$")
+        text_bottom = brace_bottom.get_text("$f'g$")
+        self.play(GrowFromCenter(brace_top), GrowFromCenter(brace_bottom),
+                  FadeIn(text_top), FadeIn(text_bottom))
+        self.wait(5)
