@@ -26,3 +26,12 @@ manim.egg-info/
 
 primes.py
 /media_dir.txt
+/Tex/*.dvi
+/Tex/*.log
+/Tex/*.svg
+/Tex/*.tex
+/Tex/*.aux
+/manimlib/auto/
+*.mp4
+/videos/
+*.aux
