@@ -2,7 +2,7 @@ import os
 import pyclbr
 
 from manimlib.imports import *
-
+from manimlib.constants import *
 
 class Shapes(Scene):
     #A few simple shapes
@@ -61,17 +61,18 @@ class MovingShapes(Scene):
 class AddingText(Scene):
     #Adding text on the screen
     def construct(self):
-        my_first_text=TextMobject("Writing with manim is fun")
-        second_line=TextMobject("and easy to do!")
+        my_first_text=TextMobject("first line")
+        second_line=TextMobject("second line")
         second_line.next_to(my_first_text,DOWN)
-        third_line=TextMobject("for me and you!")
+        third_line=TextMobject("third line")
         third_line.next_to(my_first_text,DOWN)
 
         self.add(my_first_text, second_line)
         self.wait(2)
         self.play(Transform(second_line,third_line))
         self.wait(2)
-        second_line.shift(3*DOWN)
+        third_line.shift(3*DOWN)
+        # third_line.shift(3*DOWN)
         self.play(ApplyMethod(my_first_text.shift,3*UP))
         ###Try uncommenting the following###
         #self.play(ApplyMethod(second_line.move_to, LEFT_SIDE-2*LEFT))
@@ -81,7 +82,7 @@ class AddingText(Scene):
 class AddingMoreText(Scene):
     #Playing around with text properties
     def construct(self):
-        quote = TextMobject("Imagination is more important than knowledge")
+        quote = TextMobject("Imagination is more important than knowledge by somebody")
         quote.set_color(RED)
         quote.to_edge(UP)
         quote2 = TextMobject("A person who never made a mistake never tried anything new")
@@ -294,8 +295,8 @@ class ExampleApproximation(GraphScene):
 
 class DrawAnAxis(Scene):
     CONFIG = { "plane_kwargs" : {
-        "x_line_frequency" : 2,
-        "y_line_frequency" :2
+        "x_line_frequency" : 1,
+        "y_line_frequency" : 1
         }
     }
 
@@ -303,7 +304,7 @@ class DrawAnAxis(Scene):
         my_plane = NumberPlane(**self.plane_kwargs)
         my_plane.add(my_plane.get_axis_labels())
         self.add(my_plane)
-        #self.wait()
+        self.wait()
 
 class SimpleField(Scene):
     CONFIG = {
@@ -359,9 +360,9 @@ class FieldWithAxes(Scene):
         x,y = point[:2]
         Rx,Ry = self.point_charge_loc[:2]
         r = math.sqrt((x-Rx)**2 + (y-Ry)**2)
-        efield = (point - self.point_charge_loc)/r**3
-        #efield = np.array((-y,x,0))/math.sqrt(x**2+y**2)  #Try one of these two fields
-        #efield = np.array(( -2*(y%2)+1 , -2*(x%2)+1 , 0 ))/3  #Try one of these two fields
+        # efield = (point - self.point_charge_loc)/r**3
+        # efield = np.array((-y,x,0))/math.sqrt(x**2+y**2)  #Try one of these two fields
+        efield = np.array(( -2*(y%2)+1 , -2*(x%2)+1 , 0 ))/3  #Try one of these two fields
         return Vector(efield).shift(point)
 
 class ExampleThreeD(ThreeDScene):
@@ -744,10 +745,11 @@ if __name__ == "__main__":
     # type "python manim_tutorial_P37.py" at command line to run all scenes in this file
     #Must have "import os" and  "import pyclbr" at start of file to use this
     ###Using Python class browser to determine which classes are defined in this file
-    module_name = 'manim_tutorial_P37'   #Name of current file
-    module_info = pyclbr.readmodule(module_name)
+    module_name = 'manim_tutorial_p37'   #Name of current file
+    # module_info = pyclbr.readmodule(module_name)
+    os.system("python -m manim manim_tutorial_p37.py ExampleApproximation -pl")  #Does not play files
 
-    for item in module_info.values():
-        if item.module==module_name:
-            print(item.name)
-            os.system("python -m manim manim_tutorial_P37.py %s -l" % item.name)  #Does not play files
+    # for item in module_info.values():
+    #     if item.module==module_name:
+    #         print(item.name)
+    #         os.system("python -m manim manim_tutorial_P37.py %s -l" % item.name)  #Does not play files

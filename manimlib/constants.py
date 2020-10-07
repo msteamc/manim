@@ -50,6 +50,7 @@ def initialize_directories(config):
 
     for folder in [VIDEO_DIR, VIDEO_OUTPUT_DIR, TEX_DIR, TEXT_DIR]:
         if folder != "" and not os.path.exists(folder):
+            print(f"{folder} does not exist I am going to create it")
             os.makedirs(folder)
 
 NOT_SETTING_FONT_MSG='''
